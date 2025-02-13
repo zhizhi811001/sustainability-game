@@ -87,30 +87,32 @@ if len(game_data["Year"]) > 0:
 
     # Fix CO2 reduction tracking and plot the corrected chart
     st.subheader("📉 CO2 Emission Reduction Over Time")
-    fig, ax = plt.subplots(figsize=(8, 5))
+fig, ax = plt.subplots(figsize=(8, 5))
 
-    # Ensure CO2 levels decrease each year
-    df_results["Remaining_CO2"] = 100 - df_results["CO2 Reduction"].cumsum()
+# Fix year formatting
+df_results["Year"] = df_results["Year"].astype(int)
 
-    ax.plot(
-        df_results["Year"] = df_results["Year"].astype(int),
-        df_results["Remaining_CO2"],
-        marker="o",
-        linestyle="-",
-        label="CO2 Reduction Progress",
-    )
+# Fix CO2 calculation
+df_results["Remaining_CO2"] = starting_co2 - df_results["CO2 Reduction"].cumsum()
 
-    # Draw the target reduction line
-    ax.axhline(y=100 - co2_reduction_target, color="r", linestyle="--", label="Target Reduction")
+ax.plot(
+    df_results["Year"],
+    df_results["Remaining_CO2"],
+    marker="o",
+    linestyle="-",
+    label="CO2 Reduction Progress",
+)
 
-    ax.set_xlabel("Year")
-    ax.set_ylabel("CO2 Emissions (% of baseline)")
-    ax.set_title("CO2 Emission Reduction Over Time")
-    ax.legend()
-    ax.grid(True)
+# Draw the target reduction line
+ax.axhline(y=starting_co2 - co2_reduction_target, color="r", linestyle="--", label="Target Reduction")
 
-    st.pyplot(fig)
+ax.set_xlabel("Year")
+ax.set_ylabel("CO2 Emissions (% of baseline)")
+ax.set_title("CO2 Emission Reduction Over Time")
+ax.legend()
+ax.grid(True)
 
+st.pyplot(fig)
     # Display Final Result
     if starting_co2 <= 100 - co2_reduction_target:
         st.success("🎉 Congratulations! You have met the sustainability goal! 🎉")
