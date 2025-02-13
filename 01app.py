@@ -114,7 +114,7 @@ ax.grid(True)
 
 st.pyplot(fig)
     # Display Final Result
-   if starting_co2 <= 100 - co2_reduction_target:
+if starting_co2 <= 100 - co2_reduction_target:
     st.success("🎉 Congratulations! You have met the sustainability goal! 🎉")
 elif budget <= 0:
     st.error("⚠️ Budget depleted! Try optimizing your strategy next time.")
