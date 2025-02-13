@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 st.title("🌱 Sustainable Industry Simulation Game")
 
 st.sidebar.header("Game Settings")
-years = st.sidebar.slider("Select Simulation Years", min_value=5, max_value=10, value=7)
+years = st.sidebar.slider("Select Simulation Years", min_value=5, max_value=10, value=5)
 
 # Sustainability initiatives
 initiatives = {
