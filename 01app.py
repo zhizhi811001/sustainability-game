@@ -93,7 +93,7 @@ if len(game_data["Year"]) > 0:
     df_results["Remaining_CO2"] = 100 - df_results["CO2 Reduction"].cumsum()
 
     ax.plot(
-        df_results["Year"],
+        df_results["Year"] = df_results["Year"].astype(int),
         df_results["Remaining_CO2"],
         marker="o",
         linestyle="-",
