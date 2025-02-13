@@ -23,13 +23,7 @@ initiatives = {
     "Staff Green Training": {"CO2 Reduction": 3, "Cost": 0.5, "Implementation Years": 1},
 }
 
-random_events = [
-    {"Event": "Carbon Tax Increase", "Effect": "Costs go up by 10%"},
-    {"Event": "Supply Chain Disruption", "Effect": "Implementation of 1 initiative is delayed"},
-    {"Event": "New Green Tech Available", "Effect": "Unlocks additional CO2 reduction next year"},
-    {"Event": "Regulatory Incentive", "Effect": "Reduce costs by 10%"},
-    {"Event": "Extreme Weather Event", "Effect": "Lose some progress on CO2 reduction"},
-]
+
 
 starting_co2 = 100
 co2_reduction_target = 50
@@ -41,7 +35,7 @@ game_data = {
     "CO2 Reduction": [],
     "Total Cost": [],
     "Remaining Budget": [],
-    "Event": [],
+   
 }
 
 # ------------------------------
@@ -66,14 +60,7 @@ for year in range(1, years + 1):
         else:
             total_co2_reduction = sum(initiatives[c]["CO2 Reduction"] for c in selected_initiatives)
             total_cost = sum(initiatives[c]["Cost"] for c in selected_initiatives)
-            event = random.choice(random_events)
-
-            if "costs" in event["Effect"].lower():
-                total_cost *= 1.1 if "increase" in event["Effect"].lower() else 0.9
-            elif "implementation delayed" in event["Effect"].lower():
-                total_co2_reduction *= 0.8
-            elif "unlocks additional" in event["Effect"].lower():
-                total_co2_reduction *= 1.1
+            
 
             budget -= total_cost
             starting_co2 -= total_co2_reduction
@@ -83,8 +70,7 @@ for year in range(1, years + 1):
             game_data["CO2 Reduction"].append(total_co2_reduction)
             game_data["Total Cost"].append(round(total_cost, 2))
             game_data["Remaining Budget"].append(round(budget, 2))
-            game_data["Event"].append(event["Event"])
-
+            
             st.success(f"Year {year} decisions saved! See results below.")
 
     st.write("---")
